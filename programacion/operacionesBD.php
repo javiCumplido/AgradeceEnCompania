@@ -25,7 +25,7 @@ function recogerUsuarios()
 
   $resultado = $conexion->query($sql);
 
-  for ($i = 0; $fila = $resultado->fetch_array() and $i < 2; $i++) {
+  while ($fila = $resultado->fetch_array()) {
 
     echo '<option value="' . $fila["idAlumno"] . '"' . '>' . $fila["nombre"] . '</option>';
   }

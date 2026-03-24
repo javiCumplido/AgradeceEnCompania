@@ -1,17 +1,20 @@
-<?php
+i<?php
 
-include "operacionesBD.php";
+  include "operacionesBD.php";
 
-$usuario = $_POST["nombre"];
-$contrasenia = $_POST["contrasenia"];
+  session_start();
 
-$conexion = conectar();
+  $usuario = $_POST["nombre"];
+  $contrasenia = $_POST["contrasenia"];
+  $_SESSION["activo"] = 1;
 
-$sql = "SELECT nombre, contrasenia FROM Usuario WHERE nombre = '$usuario' AND contrasenia = '$contrasenia'";
+  $conexion = conectar();
 
-$resultado = $conexion->query($sql);
+  $sql = 'SELECT nombre, contrasenia FROM Usuario WHERE nombre =\'' . $usuario . '\' AND contrasenia = \'' . $contrasenia . '\'';
 
-if ($fila = $resultado->fetch_array()){
-  header("Location: ../disenio/agradecimiento.php");
-  exit();
-} else header("Location: ../disenio/registrar.php");
+  $resultado = $conexion->query($sql);
+
+  if ($fila = $resultado->fetch_array()) {
+    header("Location: ../disenio/agradecimiento.php");
+    exit();
+  } else header("Location: ../disenio/registrar.php");

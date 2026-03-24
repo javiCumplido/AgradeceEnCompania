@@ -14,17 +14,17 @@
     </header>
 
     <main>
+        <h2>Registrate</h2>
         <form method="post" action="../programacion/inicioSesion.php">
-            <h2>Registrate</h2>
             <label for="NIA">NIA</label>
             <input type="text" name="NIA" id="NIA" placeholder="Introduce tu NIA">
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre de usuario"/>
+            <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre de usuario" />
             <label for="contrasenia">Contraseña</label>
-            <input type="password" id="contrasenia" name="contrasenia" placeholder="Introduce tu contraseña"/>
+            <input type="password" id="contrasenia" name="contrasenia" placeholder="Introduce tu contraseña" />
             <label for="jesuita">Jesuita</label>
-            <input type="text" name="jesuita" id="jesuita" placeholder="Introduce tu Jesuita"/>
-            <button type="submit">Entrar</button>
+            <input type="text" name="jesuita" id="jesuita" placeholder="Introduce tu Jesuita" />
+            <button type="submit">Registrarme</button>
         </form>
     </main>
 

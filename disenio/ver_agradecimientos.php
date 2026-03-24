@@ -16,7 +16,7 @@
     <nav>
         <a href="./agradecimiento.php">Agradecer</a>
         <a href="#">Recibir</a>
-        <a href="./index.php">Cerrar Sesión</a>
+        <a href="../programacion/cerrarSesion.php">Cerrar Sesión</a>
     </nav>
 
     <main>

@@ -20,7 +20,7 @@
   <nav>
     <a href="#">Agradecer</a>
     <a href="./ver_agradecimientos.php">Recibir</a>
-    <a href="./index.php">Cerrar Sesión</a>
+    <a href="../programacion/cerrarSesion.php">Cerrar Sesión</a>
   </nav>
   <main>
     <form method="get" action="./ver_agradecimientos.php">

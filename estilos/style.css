@@ -23,7 +23,7 @@ body {
 }
 
 header {
-    height: 13%;
+    height: 17%;
     text-align: center;
     padding-top: 2rem;
 }
@@ -42,7 +42,7 @@ header hr {
     background-color: #c5a059; /* Dorado San Ignacio */
     border: none;
     margin: 0 auto;
-    margin-top: 1rem;
+    margin-top: .6rem;
 }
 
 nav {
@@ -72,16 +72,17 @@ nav a:hover {
 }
 
 main {
-    height: 61dvh;
+    height: 57.6dvh;
     text-align: center;
+    align-content: center;
 }
 
 form, article {
     background: rgba(255, 255, 255, 0.85);
-    height: 96%;
-    width: 60%;
+    height: 85%;
+    width: 90%;
     margin: 0 auto;
-    padding: 1.4rem;
+    padding: .5rem;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border-top: 4px solid #c5a059;
@@ -112,20 +113,22 @@ section div{
 
 h2{
     font-size: 2.6em;
+    margin-bottom: 1rem;
 }
 
 label {
     font-size: 1.5em;
-    display: block;
+    display: inline-block;
+    width: 50%;
     margin-top: .7rem;
-    margin-bottom: .4rem;
+    margin-bottom: .7rem;
     font-weight: 600;
     color: #1a434e;
 }
 
 select, textarea, button, input {
-    width: 70%;
-    height: 9%;
+    width: 40%;
+    height: 15%;
     margin-top: .6rem;
     padding: 0.8rem;
     border: 1px solid #ccc;
@@ -133,6 +136,7 @@ select, textarea, button, input {
     background: #fff;
     font-size: .98rem;
 }
+
 
 select option::checkmark{
   order: 1;
@@ -163,14 +167,14 @@ select:open::picker-icon {
 }
 
 textarea {
-    height: 20%;
+    height: 16%;
     resize: none;
 }
 
 button {
     color: #1a434e;
     font-weight: 600;
-    width: 30%;
+    width: 20dvw;
     transition: border .5s ease;
 }
 
@@ -179,7 +183,8 @@ button:hover {
 }
 
 footer {
-    height: 19dvh;
+    margin-top: 3dvh;
+    height: 10dvh;
     text-align: center; 
     align-content: center;
 }

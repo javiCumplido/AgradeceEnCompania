@@ -23,7 +23,7 @@
     <a href="../programacion/cerrarSesion.php">Cerrar Sesión</a>
   </nav>
   <main>
-    <form method="post" action="./insertarAgradecimiento.php">
+    <form method="post" action="../programacion/insertarAgradecimiento.php">
       <label for="nombre">Para:</label>
       <select name="idAlumno" id="nombre" required>
         <button>

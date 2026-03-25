@@ -9,6 +9,10 @@ $conexion = conectar();
 
 $sql = "INSERT INTO Agradecimiento (idUsuarioEmisor, idUsuarioReceptor, mensaje) VALUES (" . "'" . $_SESSION["idAlumno"] . ", " . $idAlumno . ", " . $mensaje . ")";
 
-$conexion->query($sql);
+$resultado = $conexion->query($sql);
 
-header("Location: ../disenio/ver_agradecimientos.php");
+if ($resultado) {
+  header("Location: ../disenio/ver_agradecimientos.php");
+} else {
+  echo "Error: " . $conexion->error;
+}

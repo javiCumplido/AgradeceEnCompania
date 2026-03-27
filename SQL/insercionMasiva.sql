@@ -3,57 +3,47 @@
 -- ######################################################
 
 -- ######## USUARIO ########
-CREATE TABLE Usuario
-(
-	NIA CHAR(2) NOT NULL, 
-	nombre VARCHAR(100) NOT NULL,
-	password VARCHAR(100) NOT NULL,
-	nombreJesuita VARCHAR(100) NOT NULL,
-	informacionJesuita MEDIUMTEXT NOT NULL, 
-	web varchar(30) NOT NULL,	--	nombre de la carpeta que contiene miAgradecimiento, la imagen.
-	CONSTRAINT PK_Usuario PRIMARY KEY (NIA)
+CREATE TABLE alumnos (
+	equipo char(2) NOT NULL PRIMARY KEY,
+	nombre varchar(40) NOT NULL,
+	usuario varchar(20) NOT NULL UNIQUE, -- Nombre con el que se inicia sesión. Sin espacios
+	password varchar(20) NOT NULL,
+	nombreJesuita varchar(100) NOT NULL,
+	infoJesuita varchar(250)NOT NULL,
+	web varchar(30) NOT NULL UNIQUE -- Nombre de la carpeta, que debe tener un archivo index.php, más el css y la imagen del jesuita.	
 );
 
--- Índices solicitados para Usuario
-CREATE UNIQUE INDEX UN_Usuario_Nombre ON Usuario(nombre);
-CREATE INDEX IX_Usuario_Jesuita ON Usuario(nombreJesuita);
-
-
 -- ######## AGRADECIMIENTO ########
-CREATE TABLE Agradecimiento 
-(
-	idAgradecimiento TINYINT NOT NULL AUTO_INCREMENT,
-	idUsuarioEmisor CHAR(2) NOT NULL,
-	idUsuarioReceptor CHAR(2) NOT NULL,
-	mensaje MEDIUMTEXT NOT NULL,
-	CONSTRAINT PK_Agradecimiento PRIMARY KEY (idAgradecimiento)
+CREATE TABLE agradecimientos (
+    idAgradecimiento smallint unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	mensaje varchar(300) NOT NULL,
+	idEmisor char(2) NOT NULL,
+	idReceptor char(2) NOT NULL,
+	fecha_hora timestamp default NOW(),
+	CONSTRAINT CK_diferentes CHECK (idEmisor!=idReceptor ),
+	CONSTRAINT FK_emisor FOREIGN KEY (idEmisor) REFERENCES alumnos (equipo),
+	CONSTRAINT FK_receptor FOREIGN KEY (idReceptor) REFERENCES alumnos (equipo)
+
 );
 
 -- Índices solicitados para Agradecimiento
-CREATE UNIQUE INDEX UN_Agradecimiento_Receptor ON Agradecimiento(idUsuarioEmisor, idUsuarioReceptor);
-
--- Relaciones de Integridad y Reglas de Negocio
-ALTER TABLE Agradecimiento 
-ADD CONSTRAINT FK_Agradecimiento_Emisor FOREIGN KEY (idUsuarioEmisor) REFERENCES Usuario(NIA),
-ADD CONSTRAINT FK_Agradecimiento_Receptor FOREIGN KEY (idUsuarioReceptor) REFERENCES Usuario(NIA),
-ADD CONSTRAINT CK_Agradecimiento_Distintos CHECK (idUsuarioEmisor <> idUsuarioReceptor);
-
+CREATE UNIQUE INDEX UN_Agradecimiento_Receptor ON agradecimientos(idEmisor, idReceptor);
 
 -- ######################################################
 -- INSERCIÓN MASIVA DE DATOS (3 FILAS POR TABLA)
 -- ######################################################
 
 -- ######## USUARIO ########
-INSERT INTO Usuario (NIA, nombre, password, nombreJesuita, informacionJesuita, web) 
+INSERT INTO alumnos (equipo, nombre, usuario, password, nombreJesuita, infoJesuita, web) 
 VALUES 
-('01', 'Alberto García', 'pass123', 'San Ignacio de Loyola', 'Fundador de la Compañía de Jesús, conocido por sus ejercicios espirituales.', 'SanIgnaciodeLoyola'),
-('02', 'Beatriz López', 'secr456', 'San Francisco Javier', 'Misionero jesuita que llevó el cristianismo al lejano oriente.', 'SanFranciscoJavier'),
-('03', 'Carlos Ruiz', 'admin789', 'San Alberto Hurtado', 'Jesuita chileno conocido por su gran labor social y caridad.', 'SanAlbertoHurtado');
+('01', 'Alberto Garcia', 'Alber01_' 'pass123', 'San Ignacio de Loyola', 'Fundador de la Compañía de Jesús, conocido por sus ejercicios espirituales.', 'AlbertoGarcía'),
+('02', 'Beatriz Lopez', 'beaLo02' 'secr456', 'San Francisco Javier', 'Misionero jesuita que llevó el cristianismo al lejano oriente.', 'BeatrizLopez'),
+('03', 'Carlos Ruiz', 'carl12' 'admin789', 'San Alberto Hurtado', 'Jesuita chileno conocido por su gran labor social y caridad.', 'CarlosRuiz');
 
 
 -- ######## AGRADECIMIENTO ########
 -- Se han seleccionado parejas distintas para cumplir con el CHECK y el UNIQUE del receptor
-INSERT INTO Agradecimiento (idUsuarioEmisor, idUsuarioReceptor, mensaje) 
+INSERT INTO agradecimientos (idEmisor, idReceptor, mensaje) 
 VALUES 
 ('01', '02', 'Muchas gracias por explicarme los conceptos de bases de datos ayer.'),
 ('02', '03', 'Gracias por compartir tus apuntes de historia, me sirvieron mucho.'),

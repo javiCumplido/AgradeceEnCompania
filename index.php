@@ -1,0 +1,89 @@
+<?php
+//Conecta con la base de datos
+include './operacionesBD.php';
+$conexion = conectar();
+// $_GET["id"] = 2;
+//Obtiene el mensaje de agradecimiento y el id del alumno que agradece
+$sql = "select mensaje, idEmisor, idReceptor from agradecimientos
+      where idAgradecimiento=" . $_GET["id"] . ";";
+// $_GET["id"] es el valor enviado por URL en <a href...>,
+// a continuacion de la ?
+// <a href="webAlumnos/'.$web.'?id='.$idAgradecimiento.'">
+$resultado = $conexion->query($sql);
+$fila = $resultado->fetch_array(); // Devuelve una sola fila
+/* De aquí obtenemos $fila["mensaje"] para poder mostrarlo y
+   $fila["idEmisor"], $fila["idReceptor"] para buscar en la tabla alumnos los datos 
+   del alumno que ha enviado el mensaje y el que ha recibigo*/
+
+$mensaje = $fila["mensaje"]; // Variable para mostrar el mensaje.
+$emisor = $fila["idEmisor"]; //Variable que usamos para consultar 
+//los datos del alumno que envía el mensaje  
+$receptor = $fila["idReceptor"];
+
+
+//Obtiene el nombre del jesuita y su información de la tabla alumnos.
+$sql = "select nombreJesuita, infoJesuita from alumnos
+      where equipo=" . $emisor; //Alumno que envía el mensaje.
+$resultado = $conexion->query($sql);
+$fila = $resultado->fetch_array(); // Devuelve una sola fila
+// ACLARACIÓN: En lugar de realizar dos consultas, lo óptimo sería 
+// usar una consulta de 2 tablas que devuelve 1 sola fila.
+
+
+$jesuita = $fila["nombreJesuita"]; //variable para mostrar el nombre del jesuita
+$infoJesuita = $fila["infoJesuita"]; //variable para mostrar la información del jesuita
+// Cerramos php y a continuación tenemos el HTML
+
+//Obtiene el nombre alumno al que se le agradece de la tabla alumnos.
+$sql = "select nombre from alumnos
+      where equipo=" . $receptor; //Alumno que envía el mensaje.
+$resultado = $conexion->query($sql);
+$fila = $resultado->fetch_array(); // Devuelve una sola fila
+
+$receptor = $fila["nombre"]; //NOMBRE DEL ALUMNO QUE RECIBE EL AGRADECIMIENTO
+
+?>
+
+<!DOCTYPE html>
+
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Recibir - Agradece en Compañía</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Agradece en Compañía</h1>
+        <hr />
+    </header>
+
+    <main>
+        <h2>Para <?php echo $receptor; ?></h2>
+        <article>
+            <section>
+                <p><strong>Jesuita: <?php echo $jesuita; ?></strong></p>
+                <p><?php echo $infoJesuita ?></p>
+                <h3>Mensaje:</h3>
+                <p>
+                    <?php
+                    echo $mensaje;
+                    ?>
+                </p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <hr />
+        <div>
+            <img src="./imagenFooter.png" alt="Logo">
+        </div>
+        <hr />
+    </footer>
+</body>
+
+</html>
